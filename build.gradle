@@ -5,43 +5,18 @@ plugins {
     id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
+configurations {
+    asciidoctorExt // 2.
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
 repositories {
     mavenCentral()
 }
 sourceCompatibility = 11
 targetCompatibility = 11
-
-configurations {
-    asciidoctorExt
-}
-
-ext {
-    snippetsDir = file('build/generated-snippets')
-}
-
-asciidoctor {
-    dependsOn test
-    inputs.dir snippetsDir
-}
-
-asciidoctor.doFirst {
-    delete file('src/main/resources/static/docs')
-}
-
-bootJar {
-    dependsOn asciidoctor
-    copy {
-        from "${asciidoctor.outputDir}"
-        into 'BOOT-INF/classes/static/docs'
-    }
-}
-
-task copyDocument(type: Copy) {
-    dependsOn asciidoctor
-    from file("build/docs/asciidoc")
-    into file("src/main/resources/static/docs")
-}
-
 
 dependencies {
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
@@ -66,4 +41,46 @@ dependencies {
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'org.projectlombok:lombok'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    implementation "com.h2database:h2"
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+test {
+    outputs.dir snippetsDir // 5.
+    useJUnitPlatform()
+}
+
+// 6.
+asciidoctor {
+    inputs.dir snippetsDir // 6-1
+    configurations 'asciidoctorExt' // 6-2
+    dependsOn test
+
+}
+
+// 7.
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+    doFirst{
+        delete file('src/main/resources/static/docs')
+    }
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static/docs")
+}
+
+// 8.
+build {
+    dependsOn copyDocument
+}
+
+// 9.
+bootJar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
 }
