@@ -1,0 +1,42 @@
+# development
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://3.37.128.188:3306/chanee
+    username: root
+    password: chanee1234!#%Z
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#  flyway:
+#    locations: classpath:/db/migration
+#    baseline-on-migrate: true
+#    validateOnMigrate: false
+#    baseline-version: 0
+#    user: ENC(46QNuFBbD1SvqOwNFdjn2g==)
+#    password: ENC(Dhlka+NsTZKKNF7Tdl3NafKShFuNVjwE)
+#    enabled: false
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+  pattern:
+    console: '[%d{yyyy:MM:dd HH:mm:ss}] %-5level %logger{36}:%line - %msg%n'
+
+# 암호화 관련
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    password: apiKey
