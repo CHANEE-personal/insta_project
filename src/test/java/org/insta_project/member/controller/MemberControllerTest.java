@@ -76,7 +76,7 @@ class MemberControllerTest {
         given(memberService.save(ArgumentMatchers.any(MemberEntity.class))).willReturn(memberEntity);
 
         // when
-        mockMvc.perform(post("/member").contentType(APPLICATION_JSON_VALUE).accept("application/json")
+        mockMvc.perform(post("/member/join").contentType(APPLICATION_JSON_VALUE).accept("application/json")
                         .content(objectMapper.writeValueAsString(memberEntity)))
                 .andDo(MemberControllerDocs.saveMember()).andDo(print());
     }
