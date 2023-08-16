@@ -1,10 +1,13 @@
 package org.insta_project.member.controller;
 
 import javax.transaction.Transactional;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.Before;
 import static org.hamcrest.Matchers.any;
+import org.insta_project.member.domain.IdCheckRequest;
+import org.insta_project.member.domain.IdCheckResponse;
 import org.insta_project.member.domain.MemberDTO;
 import org.insta_project.member.domain.MemberEntity;
 import org.insta_project.member.service.MemberService;
@@ -25,6 +28,7 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -59,6 +63,24 @@ class MemberControllerTest {
 
 
     @Test
+    @DisplayName("ID 중복 체크")
+    void checkUserIdTest() throws Exception {
+        IdCheckRequest idCheckRequest = new IdCheckRequest();
+        idCheckRequest.setUserId("test");
+
+        IdCheckResponse idCheckResponse = new IdCheckResponse();
+        idCheckResponse.setResult(true);
+        idCheckResponse.setMessage("success");
+
+        given(memberService.checkUserId(ArgumentMatchers.any(IdCheckRequest.class))).willReturn(idCheckResponse);
+        // when
+        mockMvc.perform(get("/member/check").contentType(APPLICATION_JSON_VALUE).accept("application/json")
+                        .content(objectMapper.writeValueAsString(idCheckRequest))).andDo(MemberControllerDocs.checkUserId())
+                .andDo(print());
+    }
+
+
+    @Test
     @DisplayName("회원가입")
     void saveMemberTest() throws Exception {
         // given
@@ -77,7 +99,7 @@ class MemberControllerTest {
 
         // when
         mockMvc.perform(post("/member/join").contentType(APPLICATION_JSON_VALUE).accept("application/json")
-                        .content(objectMapper.writeValueAsString(memberEntity)))
-                .andDo(MemberControllerDocs.saveMember()).andDo(print());
+                        .content(objectMapper.writeValueAsString(memberEntity))).andDo(MemberControllerDocs.saveMember())
+                .andDo(print());
     }
 }

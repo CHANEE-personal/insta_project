@@ -6,6 +6,18 @@
 
 = Member - 회원 관련
 
+== 아이디 중복 확인
+
+=== 요청
+
+include::{snippets}/check-user-id/http-request.adoc[]
+include::{snippets}/check-user-id/request-fields.adoc[]
+
+=== 응답
+
+include::{snippets}/check-user-id/http-response.adoc[]
+include::{snippets}/check-user-id/response-fields.adoc[]
+
 == 회원 가입
 
 === 요청
