@@ -13,13 +13,13 @@ services:
       - .env
     restart: always
 
-  user-app:
+  app:
     container_name: insta_project
     build:
       context: ./
       dockerfile: Dockerfile
     ports:
-      - "9001:9001"
+      - "8080:8080"
     depends_on:
       - mysql
     env_file:

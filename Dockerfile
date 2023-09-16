@@ -4,6 +4,6 @@ FROM openjdk:11
 ARG PACKAGE_JAR=build/libs/insta_project.jar
 
 # run
-EXPOSE 9001:9001
+EXPOSE 8080:8080
 ADD ${PACKAGE_JAR} insta_project.jar
 ENTRYPOINT ["java","-jar", "-Dspring.profiles.active=dev", "./insta_project.jar"]
