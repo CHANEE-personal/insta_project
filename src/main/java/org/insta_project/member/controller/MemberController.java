@@ -24,7 +24,6 @@ public class MemberController {
     @PostMapping("/join")
     public ResponseEntity<MemberEntity> saveMember(@RequestBody MemberDTO member) {
         MemberEntity memberEntity = new MemberEntity();
-        memberEntity.setId(member.getId());
         memberEntity.setUserName(member.getUserName());
         memberEntity.setUserId(member.getUserId());
         memberEntity.setPassword(member.getPassword());
