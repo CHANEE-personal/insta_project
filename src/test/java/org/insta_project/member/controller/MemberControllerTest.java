@@ -1,14 +1,7 @@
 package org.insta_project.member.controller;
 
-import javax.transaction.Transactional;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.annotation.Before;
-import static org.hamcrest.Matchers.any;
-import org.insta_project.member.domain.IdCheckRequest;
 import org.insta_project.member.domain.IdCheckResponse;
-import org.insta_project.member.domain.MemberDTO;
 import org.insta_project.member.domain.MemberEntity;
 import org.insta_project.member.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +13,6 @@ import static org.mockito.BDDMockito.given;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import org.springframework.restdocs.RestDocumentationContextProvider;
@@ -65,17 +57,15 @@ class MemberControllerTest {
     @Test
     @DisplayName("ID 중복 체크")
     void checkUserIdTest() throws Exception {
-        IdCheckRequest idCheckRequest = new IdCheckRequest();
-        idCheckRequest.setUserId("test");
 
         IdCheckResponse idCheckResponse = new IdCheckResponse();
         idCheckResponse.setResult(true);
         idCheckResponse.setMessage("success");
 
-        given(memberService.checkUserId(ArgumentMatchers.any(IdCheckRequest.class))).willReturn(idCheckResponse);
+        given(memberService.checkUserId("test")).willReturn(idCheckResponse);
         // when
-        mockMvc.perform(get("/member/check").contentType(APPLICATION_JSON_VALUE).accept("application/json")
-                        .content(objectMapper.writeValueAsString(idCheckRequest))).andDo(MemberControllerDocs.checkUserId())
+        mockMvc.perform(get("/member/check")
+                        .param("userId", "test")).andDo(MemberControllerDocs.checkUserId())
                 .andDo(print());
     }
 

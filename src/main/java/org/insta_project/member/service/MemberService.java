@@ -3,7 +3,6 @@ package org.insta_project.member.service;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
-import org.insta_project.member.domain.IdCheckRequest;
 import org.insta_project.member.domain.IdCheckResponse;
 import org.insta_project.member.domain.MemberEntity;
 import org.springframework.stereotype.Service;
@@ -22,9 +21,9 @@ public class MemberService {
     }
 
 
-    public IdCheckResponse checkUserId(IdCheckRequest idCheckRequest) {
+    public IdCheckResponse checkUserId(String userId) {
         IdCheckResponse idCheckResponse = new IdCheckResponse();
-        Optional<MemberEntity> getUser = memberRepository.findByUserId(idCheckRequest.getUserId());
+        Optional<MemberEntity> getUser = memberRepository.findByUserId(userId);
 
         idCheckResponse.setResult(getUser.isEmpty());
         idCheckResponse.setMessage(getUser.isEmpty() ? "success" : "fail");

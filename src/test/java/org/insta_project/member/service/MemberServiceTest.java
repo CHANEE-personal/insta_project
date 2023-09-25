@@ -2,7 +2,6 @@ package org.insta_project.member.service;
 
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
-import org.insta_project.member.domain.IdCheckRequest;
 import org.insta_project.member.domain.IdCheckResponse;
 import org.insta_project.member.domain.MemberEntity;
 import org.junit.jupiter.api.DisplayName;
@@ -36,17 +35,13 @@ class MemberServiceTest {
         memberRepository.save(member);
 
         given(memberRepository.findByUserId(member.getUserId())).willReturn(Optional.of(member));
-        IdCheckRequest idCheckRequest = new IdCheckRequest();
-        idCheckRequest.setUserId("test");
 
-        IdCheckResponse idCheckResponse = memberService.checkUserId(idCheckRequest);
+        IdCheckResponse idCheckResponse = memberService.checkUserId("test");
         Assertions.assertThat(idCheckResponse.isResult()).isFalse();
 
         // 중복되지 않은 아이디
-        IdCheckRequest idCheckRequest1 = new IdCheckRequest();
-        idCheckRequest1.setUserId("test1");
 
-        IdCheckResponse idCheckResponse1 = memberService.checkUserId(idCheckRequest1);
+        IdCheckResponse idCheckResponse1 = memberService.checkUserId("test1");
         Assertions.assertThat(idCheckResponse1.isResult()).isTrue();
     }
 

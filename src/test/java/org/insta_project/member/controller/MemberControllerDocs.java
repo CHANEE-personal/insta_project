@@ -7,6 +7,8 @@ import static org.springframework.restdocs.payload.JsonFieldType.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import org.springframework.test.web.servlet.ResultHandler;
 
 public class MemberControllerDocs {
@@ -34,7 +36,7 @@ public class MemberControllerDocs {
 
 
     public static RestDocumentationResultHandler checkUserId() {
-        return document("check-user-id", requestFields(fieldWithPath("userId").description("userId")),
+        return document("check-user-id", requestParameters(parameterWithName("userId").description("userId")),
                 responseFields(fieldWithPath("result").type(BOOLEAN).description("결과(true or false)"),
                         fieldWithPath("message").type(STRING).description("메세지(success or fail)")));
     }

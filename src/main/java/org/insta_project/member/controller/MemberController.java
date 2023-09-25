@@ -1,7 +1,6 @@
 package org.insta_project.member.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.insta_project.member.domain.IdCheckRequest;
 import org.insta_project.member.domain.IdCheckResponse;
 import org.insta_project.member.domain.MemberDTO;
 import org.insta_project.member.domain.MemberEntity;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -38,7 +38,7 @@ public class MemberController {
 
 
     @GetMapping("/check")
-    public ResponseEntity<IdCheckResponse> checkUserId(@RequestBody IdCheckRequest idCheckRequest) {
-        return ResponseEntity.ok(memberService.checkUserId(idCheckRequest));
+    public ResponseEntity<IdCheckResponse> checkUserId(@RequestParam("userId") String userId) {
+        return ResponseEntity.ok(memberService.checkUserId(userId));
     }
 }
