@@ -40,4 +40,12 @@ public class MemberControllerDocs {
                 responseFields(fieldWithPath("result").type(BOOLEAN).description("결과(true or false)"),
                         fieldWithPath("message").type(STRING).description("메세지(success or fail)")));
     }
+
+
+    public static RestDocumentationResultHandler login() {
+        return document("login", requestFields(fieldWithPath("userId").description("userId"),
+                        fieldWithPath("password").type(STRING).description("password")),
+                responseFields(fieldWithPath("result").type(BOOLEAN).description("결과(true or false)"),
+                        fieldWithPath("message").type(STRING).description("메세지(success or fail)")));
+    }
 }

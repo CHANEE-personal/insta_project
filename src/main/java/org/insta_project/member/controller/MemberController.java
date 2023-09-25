@@ -2,6 +2,8 @@ package org.insta_project.member.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.insta_project.member.domain.IdCheckResponse;
+import org.insta_project.member.domain.LoginRequest;
+import org.insta_project.member.domain.LoginResponse;
 import org.insta_project.member.domain.MemberDTO;
 import org.insta_project.member.domain.MemberEntity;
 import org.insta_project.member.service.MemberService;
@@ -40,5 +42,11 @@ public class MemberController {
     @GetMapping("/check")
     public ResponseEntity<IdCheckResponse> checkUserId(@RequestParam("userId") String userId) {
         return ResponseEntity.ok(memberService.checkUserId(userId));
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(memberService.login(loginRequest));
     }
 }

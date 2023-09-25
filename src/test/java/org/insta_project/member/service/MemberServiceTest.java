@@ -3,6 +3,8 @@ package org.insta_project.member.service;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
 import org.insta_project.member.domain.IdCheckResponse;
+import org.insta_project.member.domain.LoginRequest;
+import org.insta_project.member.domain.LoginResponse;
 import org.insta_project.member.domain.MemberEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -61,6 +63,30 @@ class MemberServiceTest {
         MemberEntity saveMember = memberService.save(member);
         // then
         Assertions.assertThat(saveMember.getUserId()).isEqualTo("test");
+    }
+
+
+    @Test
+    @DisplayName("로그인")
+    void loginTest() {
+        // given
+        MemberEntity member = new MemberEntity();
+        member.setUserId("test");
+        member.setUserName("test");
+        member.setPassword("password");
+
+        given(memberRepository.findByUserIdAndPassword(member.getUserId(), member.getPassword())).willReturn(
+                Optional.of(member));
+
+        // when
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUserId(member.getUserId());
+        loginRequest.setPassword(member.getPassword());
+        LoginResponse response = memberService.login(loginRequest);
+
+        // then
+        Assertions.assertThat(response.isResult()).isTrue();
+        Assertions.assertThat(response.getMessage()).isEqualTo("success");
     }
 }
 

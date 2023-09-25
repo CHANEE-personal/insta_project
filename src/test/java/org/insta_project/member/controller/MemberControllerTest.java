@@ -1,7 +1,10 @@
 package org.insta_project.member.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.insta_project.member.domain.IdCheckResponse;
+import org.insta_project.member.domain.LoginRequest;
+import org.insta_project.member.domain.LoginResponse;
 import org.insta_project.member.domain.MemberEntity;
 import org.insta_project.member.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +25,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -64,8 +68,7 @@ class MemberControllerTest {
 
         given(memberService.checkUserId("test")).willReturn(idCheckResponse);
         // when
-        mockMvc.perform(get("/member/check")
-                        .param("userId", "test")).andDo(MemberControllerDocs.checkUserId())
+        mockMvc.perform(get("/member/check").param("userId", "test")).andDo(MemberControllerDocs.checkUserId())
                 .andDo(print());
     }
 
@@ -90,6 +93,26 @@ class MemberControllerTest {
         // when
         mockMvc.perform(post("/member/join").contentType(APPLICATION_JSON_VALUE).accept("application/json")
                         .content(objectMapper.writeValueAsString(memberEntity))).andDo(MemberControllerDocs.saveMember())
+                .andDo(print());
+    }
+
+
+    @Test
+    @DisplayName("로그인")
+    void loginTest() throws Exception {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUserId("test");
+        loginRequest.setPassword("test");
+
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setResult(true);
+        loginResponse.setMessage("success");
+
+        given(memberService.login(loginRequest)).willReturn(loginResponse);
+
+        // when
+        mockMvc.perform(post("/member/login").contentType(APPLICATION_JSON_VALUE).accept("application/json")
+                        .content(objectMapper.writeValueAsString(loginRequest))).andDo(MemberControllerDocs.login())
                 .andDo(print());
     }
 }
