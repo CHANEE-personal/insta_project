@@ -28,3 +28,15 @@ include::{snippets}/join-member/request-fields.adoc[]
 
 include::{snippets}/join-member/http-response.adoc[]
 include::{snippets}/join-member/response-fields.adoc[]
+
+== 로그인
+
+=== 요청
+
+include::{snippets}/login/http-request.adoc[]
+include::{snippets}/login/request-fields.adoc[]
+
+=== 응답
+
+include::{snippets}/login/http-response.adoc[]
+include::{snippets}/login/response-fields.adoc[]

@@ -6,13 +6,16 @@ import org.insta_project.member.domain.IdCheckResponse;
 import org.insta_project.member.domain.LoginRequest;
 import org.insta_project.member.domain.LoginResponse;
 import org.insta_project.member.domain.MemberEntity;
+import org.insta_project.member.service.MemberRepository;
 import org.insta_project.member.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -36,7 +39,6 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @ActiveProfiles("dev")
 @AutoConfigureRestDocs
 @WebMvcTest(MemberController.class)
-        //@Transactional
 class MemberControllerTest {
 
     @Autowired
@@ -88,7 +90,7 @@ class MemberControllerTest {
         memberEntity.setAddress("인천");
         memberEntity.setEmail("test@naver.com");
 
-        given(memberService.save(ArgumentMatchers.any(MemberEntity.class))).willReturn(memberEntity);
+        given(memberService.save(any(MemberEntity.class))).willReturn(memberEntity);
 
         // when
         mockMvc.perform(post("/member/join").contentType(APPLICATION_JSON_VALUE).accept("application/json")
@@ -108,7 +110,7 @@ class MemberControllerTest {
         loginResponse.setResult(true);
         loginResponse.setMessage("success");
 
-        given(memberService.login(loginRequest)).willReturn(loginResponse);
+        given(memberService.login(any())).willReturn(loginResponse);
 
         // when
         mockMvc.perform(post("/member/login").contentType(APPLICATION_JSON_VALUE).accept("application/json")

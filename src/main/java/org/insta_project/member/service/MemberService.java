@@ -24,6 +24,8 @@ public class MemberService {
 
 
     public IdCheckResponse checkUserId(String userId) {
+        System.out.println("===user===");
+        System.out.println(userId);
         IdCheckResponse idCheckResponse = new IdCheckResponse();
         Optional<MemberEntity> getUser = memberRepository.findByUserId(userId);
 
@@ -34,13 +36,16 @@ public class MemberService {
 
 
     public LoginResponse login(LoginRequest loginRequest) {
-
         LoginResponse loginResponse = new LoginResponse();
         Optional<MemberEntity> getUser =
                 memberRepository.findByUserIdAndPassword(loginRequest.getUserId(), loginRequest.getPassword());
 
         loginResponse.setResult(getUser.isPresent());
         loginResponse.setMessage(getUser.isPresent() ? "success" : "fail");
+
+        System.out.println("===login===");
+        System.out.println(loginResponse.isResult());
+        System.out.println(loginResponse.getMessage());
         return loginResponse;
     }
 }

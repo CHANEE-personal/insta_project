@@ -42,7 +42,6 @@ class MemberServiceTest {
         Assertions.assertThat(idCheckResponse.isResult()).isFalse();
 
         // 중복되지 않은 아이디
-
         IdCheckResponse idCheckResponse1 = memberService.checkUserId("test1");
         Assertions.assertThat(idCheckResponse1.isResult()).isTrue();
     }
