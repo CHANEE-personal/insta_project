@@ -11,6 +11,8 @@ public class Post {
 
     private long id;
     private String title;
+    private String description;
+    private List<String> hashTag = new ArrayList<>();
     private String postUrl;
     private int favoriteCount;
     private String type;

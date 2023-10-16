@@ -448,6 +448,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_응답">1.2. 응답</a></li>
 </ul>
 </li>
+<li><a href="#_내가_작성한_게시글_조회">2. 내가 작성한 게시글 조회</a>
+<ul class="sectlevel2">
+<li><a href="#_요청_2">2.1. 요청</a></li>
+<li><a href="#_응답_2">2.2. 응답</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -473,9 +479,9 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 459
+Content-Length: 511
 
-{"posts":[{"id":1,"title":"헤라","postUrl":"https://scontent-nrt1-1.cdninstagram.com/v/t51.2885-15/391427450_315366737800837_4834827310497302406_n.jpg?stp=dst-jpg_e35&amp;_nc_ht=scontent-nrt1-1.cdninstagram.com&amp;_nc_cat=1&amp;_nc_ohc=nCH8gQHAgNYAX_6SA-6&amp;edm=AHqBGi8BAAAA&amp;ccb=7-5&amp;ig_cache_key=MzIxMzQzOTAyNzEzMzc2NjY0NQ%3D%3D.2-ccb7-5&amp;oh=00_AfDGU7Pxbi83dWABa19IKVsgepiIDXnMeA_UeY6THW23KQ&amp;oe=65317320&amp;_nc_sid=1fce60","favoriteCount":3,"type":"other","replyCount":10}]}</code></pre>
+{"posts":[{"id":1,"title":"헤라","description":"헤라","hashTag":["#제니","#꿈"],"postUrl":"https://scontent-nrt1-1.cdninstagram.com/v/t51.2885-15/391427450_315366737800837_4834827310497302406_n.jpg?stp=dst-jpg_e35&amp;_nc_ht=scontent-nrt1-1.cdninstagram.com&amp;_nc_cat=1&amp;_nc_ohc=nCH8gQHAgNYAX_6SA-6&amp;edm=AHqBGi8BAAAA&amp;ccb=7-5&amp;ig_cache_key=MzIxMzQzOTAyNzEzMzc2NjY0NQ%3D%3D.2-ccb7-5&amp;oh=00_AfDGU7Pxbi83dWABa19IKVsgepiIDXnMeA_UeY6THW23KQ&amp;oe=65317320&amp;_nc_sid=1fce60","favoriteCount":3,"type":"other","replyCount":10}]}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -503,6 +509,11 @@ Content-Length: 459
 <td class="tableblock halign-left valign-top"><p class="tableblock">게시글 제목</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 내용</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>postUrl</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">게시글 URL</p></td>
@@ -515,7 +526,97 @@ Content-Length: 459
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">작성자</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자(other or me)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hashTag[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HashTag</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>replyCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 갯수</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_내가_작성한_게시글_조회">2. 내가 작성한 게시글 조회</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_요청_2">2.1. 요청</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /posts/my-post HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_응답_2">2.2. 응답</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 508
+
+{"posts":[{"id":1,"title":"헤라","description":"헤라","hashTag":["#제니","#꿈"],"postUrl":"https://scontent-nrt1-1.cdninstagram.com/v/t51.2885-15/391427450_315366737800837_4834827310497302406_n.jpg?stp=dst-jpg_e35&amp;_nc_ht=scontent-nrt1-1.cdninstagram.com&amp;_nc_cat=1&amp;_nc_ohc=nCH8gQHAgNYAX_6SA-6&amp;edm=AHqBGi8BAAAA&amp;ccb=7-5&amp;ig_cache_key=MzIxMzQzOTAyNzEzMzc2NjY0NQ%3D%3D.2-ccb7-5&amp;oh=00_AfDGU7Pxbi83dWABa19IKVsgepiIDXnMeA_UeY6THW23KQ&amp;oe=65317320&amp;_nc_sid=1fce60","favoriteCount":3,"type":"me","replyCount":10}]}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>postUrl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>favoriteCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">좋아요 갯수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">작성자(me)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hashTag[]</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HashTag</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>replyCount</code></p></td>
@@ -530,7 +631,7 @@ Content-Length: 459
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-16 21:49:51 +0900
+Last updated 2023-10-16 22:17:17 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

@@ -26,4 +26,12 @@ public class PostController {
         result.put("posts", postService.getPosts());
         return ResponseEntity.ok(result);
     }
+
+
+    @GetMapping("/my-post")
+    public ResponseEntity<Map<String, List<Post>>> getMyPosts() {
+        Map<String, List<Post>> result = new HashMap<>();
+        result.put("posts", postService.getMyPosts());
+        return ResponseEntity.ok(result);
+    }
 }
