@@ -9,5 +9,5 @@ Insta API 에 대한 설명 입니다
 
 http://localhost:8080/docs/index.html[Insta API 바로가기]
 
-== xref:Member.adoc[Member - 회원]
-== xref:Post.adoc[Post - 게시글]
+== xref:member.adoc[Member - 회원]
+== xref:post.adoc[Post - 게시글]
