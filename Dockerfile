@@ -1,18 +1,9 @@
-FROM gradle:7.4-jdk11-alpine as builder
-WORKDIR /build
+FROM openjdk:11
 
-COPY build.gradle settings.gradle /build/
-RUN gradle build -x test --parallel --continue > /dev/null 2>&1 || true
+# build
+ARG PACKAGE_JAR=build/libs/insta_project.jar
 
-COPY . /build
-RUN gradle build -x test --parallel
-
-# APP
-FROM openjdk:11.0-slim
-WORKDIR /app
-
-COPY --from=builder /build/build/libs/insta_project.jar .
-
-EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "insta_project.jar"]
+# run
+EXPOSE 8080:8080
+ADD ${PACKAGE_JAR} insta_project.jar
+ENTRYPOINT ["java","-jar", "-Dspring.profiles.active=dev", "./insta_project.jar"]
