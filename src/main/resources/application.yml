@@ -5,7 +5,7 @@ spring:
       on-profile: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://3.37.128.188:3306/chanee
+    url: jdbc:mysql://13.125.216.44:3306/insta_db
     username: root
     password: chanee1234!#%Z
   jpa:
