@@ -30,7 +30,7 @@ public class MemberController {
         memberEntity.setUserId(member.getUserId());
         memberEntity.setPassword(member.getPassword());
         memberEntity.setAddress(member.getAddress());
-        memberEntity.setSex(member.getSex());
+        memberEntity.setGender(member.getGender());
         memberEntity.setBirthDay(member.getBirthDay());
         memberEntity.setUserPhone(member.getUserPhone());
         memberEntity.setEmail(member.getEmail());

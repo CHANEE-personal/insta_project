@@ -85,7 +85,7 @@ class MemberControllerTest {
         memberEntity.setUserId("test");
         memberEntity.setPassword("test");
         memberEntity.setUserPhone("010-1234-5678");
-        memberEntity.setSex("m");
+        memberEntity.setGender("m");
         memberEntity.setBirthDay("1999-09-09");
         memberEntity.setAddress("인천");
         memberEntity.setEmail("test@naver.com");

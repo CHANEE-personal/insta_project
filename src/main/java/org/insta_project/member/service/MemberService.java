@@ -11,21 +11,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
 
 
-    @Transactional
     public MemberEntity save(MemberEntity member) {
         return memberRepository.save(member);
     }
 
 
     public IdCheckResponse checkUserId(String userId) {
-        System.out.println("===user===");
-        System.out.println(userId);
         IdCheckResponse idCheckResponse = new IdCheckResponse();
         Optional<MemberEntity> getUser = memberRepository.findByUserId(userId);
 
@@ -43,9 +41,6 @@ public class MemberService {
         loginResponse.setResult(getUser.isPresent());
         loginResponse.setMessage(getUser.isPresent() ? "success" : "fail");
 
-        System.out.println("===login===");
-        System.out.println(loginResponse.isResult());
-        System.out.println(loginResponse.getMessage());
         return loginResponse;
     }
 }

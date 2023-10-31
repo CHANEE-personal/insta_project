@@ -33,8 +33,8 @@ public class MemberEntity {
     @Column(name = "user_phone")
     private String userPhone;
 
-    @Column(name = "sex")
-    private String sex;
+    @Column(name = "gender")
+    private String gender;
 
     @Column(name = "birthday")
     private String birthDay;
