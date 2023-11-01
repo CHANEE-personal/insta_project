@@ -28,13 +28,14 @@ spring:
 
 logging:
   level:
-    org:
-      hibernate:
-        type:
-          descriptor:
-            sql: trace
+    org.springframework.orm.jpa.JpaTransaction: debug
+    org.hibernate.resource.transaction: debug
+    org.hibernate.sql: debug
+    org.hibernate.type: trace
+    org.springframework: info
   pattern:
-    console: '[%d{yyyy:MM:dd HH:mm:ss}] %-5level %logger{36}:%line - %msg%n'
+    console: "%d{yyyy:MM:dd HH:mm:ss} %-5level %logger{36}:%line - %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
 
 # 암호화 관련
 jasypt:

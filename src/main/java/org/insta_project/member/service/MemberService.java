@@ -19,6 +19,10 @@ public class MemberService {
 
 
     public MemberEntity save(MemberEntity member) {
+        Optional<MemberEntity> getUser = memberRepository.findByUserId(member.getUserId());
+        if(getUser.isPresent()) {
+            throw new IllegalArgumentException("Exist User");
+        }
         return memberRepository.save(member);
     }
 
