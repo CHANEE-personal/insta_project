@@ -11,12 +11,21 @@ spring:
     tomcat:
       default-auto-commit: true
   jpa:
-    show-sql: true
+    defer-datasource-initialization: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: none
     properties:
+      hibernate.default_batch_fetch_size: 1000
       hibernate:
         format_sql: true
-    hibernate:
-      use-new-id-generator-mappings: false
+
+
+  logging:
+    level:
+      org.hibernate.SQL: debug
+      org.hibernate.type: trace
 #  flyway:
 #    locations: classpath:/db/migration
 #    baseline-on-migrate: true
@@ -25,17 +34,6 @@ spring:
 #    user: ENC(46QNuFBbD1SvqOwNFdjn2g==)
 #    password: ENC(Dhlka+NsTZKKNF7Tdl3NafKShFuNVjwE)
 #    enabled: false
-
-logging:
-  level:
-    org.springframework.orm.jpa.JpaTransaction: debug
-    org.hibernate.resource.transaction: debug
-    org.hibernate.sql: debug
-    org.hibernate.type: trace
-    org.springframework: info
-  pattern:
-    console: "%d{yyyy:MM:dd HH:mm:ss} %-5level %logger{36}:%line - %msg%n"
-    file: "%d %-5level [%thread] %logger : %msg%n"
 
 # 암호화 관련
 jasypt:
